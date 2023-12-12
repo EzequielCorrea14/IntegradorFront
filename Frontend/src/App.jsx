@@ -31,7 +31,7 @@ function App() {
       <Route path="/models" element={<Models/>} />
       <Route path="/about" element={<About/>} />
       {/* {userData && userData.admin &&<Route path="/Alta" element={<RegisterProduct />} />} */}
-      <Route path="/Alta" element={<RegisterProduct/>} />
+      <Route path="/registerProduct" element={<RegisterProduct/>} />
 
       <Route path="/contact" element={<Contacts/>} />
       <Route path="*" element={<Page404/>} />

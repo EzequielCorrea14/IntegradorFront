@@ -6,8 +6,10 @@ import '../production/styles.css'
 import { CartProvider } from '../context/CartContext'
 import styled from  'styled-components'
 import CartButton from './CartButton'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import BurguerButton from './BurguerButton'
+import { useLocation } from 'react-router-dom';
+import Login from './login/login'
 
 
 
@@ -18,6 +20,39 @@ const NavBar = () => {
     //cuando esta true lo pasa a false y vice versa
     setClicked(!clicked)
   }
+
+
+  const userData = JSON.parse(localStorage.getItem("USER"))
+  const location = useLocation();
+  
+  const updetedData = async ()=>{
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/RCMotors/Users/Check`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({email:userData.email, apiKey:userData.apiKey}),
+      });
+
+      if (!response.ok) {
+        throw new Error(response.message);
+      }
+      const user = await response.json();
+      localStorage.setItem("USER", JSON.stringify(user))
+
+      return;
+    } catch (error) {
+      console.error("error: ", error);
+      localStorage.clear()
+    }
+  };
+  useEffect(() => {
+    if(userData){
+      updetedData()
+    }
+  
+  }, [location]);
   
   return (
     < >
@@ -31,8 +66,6 @@ const NavBar = () => {
         <ul className={`links ${clicked ? 'active' : ''}`}>
           
             <li><NavLink className='activate' to={'/'}>Home</NavLink></li>
-            {/* {userData && userData.admin &&<NavLink path="/Alta" element={<Alta />} />} */}
-            <li><NavLink className='activate' to={'/alta'}>Alta</NavLink></li>
             <li><NavLink className='activate' to={'/registerProduct'}>Register Products</NavLink></li>
             <li><NavLink className='activate' to={'/models'}>Models</NavLink></li>
             <li><NavLink className='activate' to={'/about'}>About</NavLink></li>
@@ -43,6 +76,7 @@ const NavBar = () => {
           <BurguerButton clicked={clicked} handleClick={handleClick} />
         </div>
         <BgDiv className={`initial ${clicked ? ' active' : ''}`}></BgDiv>
+        <Login/>
         <CartButton/>
         </CartProvider>
         </NavContainer>
