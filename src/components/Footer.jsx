@@ -1,7 +1,7 @@
 import React from 'react'
 import {  Link, NavLink } from 'react-router-dom'
-import { FaPhoneAlt } from "react-icons/fa";
-import { IoIosMail } from "react-icons/io";
+
+import { IoIosMail, IoIosPhonePortrait } from "react-icons/io";
 import Iframe from 'react-iframe'
 
 const Footer = () => {
@@ -12,7 +12,7 @@ const Footer = () => {
                 <h2 className="h2footer">Ventas</h2>
                 <ul className="ulfooter">
                     <li className="tel">
-                    <FaPhoneAlt />
+                    <IoIosPhonePortrait />
                         <p>Tel: +54 112222222</p>
                     </li>
                     <li className="email">
