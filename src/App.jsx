@@ -1,6 +1,6 @@
 import './production/styles.css'
 import { Route,Routes, BrowserRouter } from 'react-router-dom'
-import Home from './pages/home/home'
+import Home from './pages/Home/Home'
 import About from './Pages/About/About'
 import Contacts from './Pages/Contact/Contact'
 import Page404 from './Pages/Page404/Page404'
